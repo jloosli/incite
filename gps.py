@@ -4,8 +4,7 @@ import serial
 import sqlite3 as db
 from time import sleep
 from threading import Thread
-import random
-import time, datetime
+import random, os, time, datetime
 
 
 
@@ -24,10 +23,17 @@ class GPS:
 
 
 class DataLog:
-	con=db.connect('/home/jared/django/projects/football/football.db')
-	cur = con.cursor()
-	currentSet = None
-	g=GPS()
+
+	def __init__(self):
+		thisDir = os.path.dirname(__file__)
+		dbname = 'football.db'
+
+		print(os.path.join(thisDir + '/django/projects/football/', dbname))
+	
+		self.con=db.connect(os.path.join(thisDir + '/django/projects/football/', dbname))
+		self.cur = self.con.cursor()
+		self.currentSet = None
+		self.g=GPS()
 
 	def log(self, vals):
 		if not self.currentSet: self.newSet()
