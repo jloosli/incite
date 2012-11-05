@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>incite</title>
+    <!--<link href="/static/css/layout.css" rel="stylesheet" type="text/css">-->
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="/static/js/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="/static/js/jquery.flot.js"></script>
+ </head>
+    <body>
+    <h1>Incite Data</h1>
+    <div id="placeholder" style="width:600px;height:300px;"></div>
+
+    <p>Data should stream above.</p>
+
+<script type="text/javascript">
+
+    var data = [], totalPoints = 300;
+    function getData() {
+        console.log("in getData");
+    	$.getJSON('/gps/latest/600/', {}, function (newdata) {
+            console.log('inGetJSON');
+            console.log(newdata);
+            data=newdata;
+        
+    	});
+        
+
+       // zip the generated y values with the x values
+    }
+    // setup plot
+    var options = {
+        series: { shadowSize: 0 }, // drawing is faster without shadows
+        yaxis: { min: 0, max: 100 },
+        xaxis: { min: 0, max: 600 }
+    };
+    var plot = $.plot($("#placeholder"),  [data],options);
+
+    function update() {
+    	getData();
+        console.log("the data");    
+        window.res = [];
+            for (var i = 0; i < data.length; i++) {
+                res.push([i, data[i]]);
+            }
+        console.log(res);
+        var theSet = {data: res,label : "GPS"};
+        console.log(theSet);
+        plot.setData([theSet]);
+        plot.draw();
+
+        setTimeout(update, 1000);
+    }
+
+    update();
+    //setTimeout(update,3000);
+
+    
+/*
+    $(function() {
+
+    var container = $("#placeholder");
+
+    // Determine how many data points to keep based on the placeholder's initial size;
+    // this gives us a nice high-res plot while avoiding more than one point per pixel.
+
+    var maximum = container.outerWidth() / 2 || 300;
+
+    //
+
+    var data = [];
+
+    function getRandomData() {
+
+        if (data.length) {
+            data = data.slice(1);
+        }
+
+        while (data.length < maximum) {
+            var previous = data.length ? data[data.length - 1] : 50;
+            var y = previous + Math.random() * 10 - 5;
+            data.push(y < 0 ? 0 : y > 100 ? 100 : y);
+        }
+
+        // zip the generated y values with the x values
+
+        var res = [];
+        for (var i = 0; i < data.length; ++i) {
+            res.push([i, data[i]])
+        }
+
+        return res;
+    }
+
+    //
+
+    series = [{
+        data: getRandomData(),
+        lines: {
+            fill: true
+        }
+    }];
+
+    //
+
+    var plot = $.plot(container, series, {
+        grid: {
+            borderWidth: 1,
+            minBorderMargin: 20,
+            labelMargin: 10,
+            backgroundColor: {
+                colors: ["#fff", "#e4f4f4"]
+            },
+            hoverable: true,
+            mouseActiveRadius: 50,
+            margin: {
+                top: 8,
+                bottom: 20,
+                left: 20
+            },
+            markings: function(axes) {
+                var markings = [];
+                var xaxis = axes.xaxis;
+                for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                    markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(232, 232, 255, 0.2)" });
+                }
+                return markings;
+            }
+        },
+        yaxis: {
+            min: 0,
+            max: 110
+        },
+        legend: {
+            show: true
+        }
+    });
+
+    // Create the demo X and Y axis labels
+
+    //var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
+    //  .text("")
+    //  .appendTo(container);
+
+    var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
+        .text("Response Time (ms)")
+        .appendTo(container);
+
+    // Since CSS transforms use the top-left corner of the label as the transform origin,
+    // we need to center the y-axis label by shifting it down by half its width.
+    // Subtract 20 to factor the chart's bottom margin into the centering.
+
+    yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+
+    // Update the random dataset at 25FPS for a smoothly-animating chart
+
+    setInterval(function updateRandom() {
+        series[0].data = getRandomData();
+        console.log(series);
+        plot.setData(series);
+        plot.draw();
+    }, 4000);
+
+});
+*/
+</script>
+
+ </body>
+</html>

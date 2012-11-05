@@ -1,0 +1,9 @@
+{% if latest_dataset_list %}
+<ul>
+	{% for dataset in latest_dataset_list %}
+	<li><a href="/gps/{{dataset.id}}/">{{ dataset.start }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No datasets are available.</p>
+{% endif %}

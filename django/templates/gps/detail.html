@@ -1,0 +1,9 @@
+<h1>Dataset from {{ dataset.start }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<ul>
+{% for row in dataset.datum_set.all %}
+<li>{{row.speed}}<br />{{row.gpsstring}}</li>
+{% endfor %}
+</ul>
