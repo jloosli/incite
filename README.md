@@ -12,4 +12,4 @@ stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0
 Installation
 ------------
 Need to install pyserial
-`sudo apt-get install python-serial`
+`sudo apt-get install python-serial python-flup`
