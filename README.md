@@ -13,3 +13,12 @@ Installation
 ------------
 Need to install pyserial
 `sudo apt-get install python-serial python-flup`
+
+Wireless Hotspot
+================
+
+http://www.raspberrypi.org/phpBB3/viewtopic.php?f=36&t=19120
+
+Enable I2C
+==========
+http://www.instructables.com/id/Raspberry-Pi-I2C-Python/
