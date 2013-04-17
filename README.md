@@ -9,6 +9,31 @@ Test from command line
 ----------------------
 stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0
 
+Sample output:
+```
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E
+
+$GPRMC,144207.579,V,,,,,,,170413,,,N*42
+
+$GPGGA,144208.579,,,,,0,00,,,M,0.0,M,,0000*56
+
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E
+
+$GPRMC,144208.579,V,,,,,,,170413,,,N*4D
+
+$GPGGA,144209.579,,,,,0,00,,,M,0.0,M,,0000*57
+
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E
+
+$GPGSV,1,1,00*79
+
+$GPRMC,144209.579,V,,,,,,,170413,,,N*4C
+
+$GPGGA,144210.579,,,,,0,00,,,M,0.0,M,,0000*5F
+
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E
+```
+
 Installation
 ------------
 Need to install pyserial
