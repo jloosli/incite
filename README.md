@@ -9,6 +9,11 @@ Test from command line
 ----------------------
 stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0
 
+GPS Readings:
+-------------
+
+See http://aprs.gids.nl/nmea/
+
 Sample output:
 ```
 $GPGSA,A,1,,,,,,,,,,,,,,,*1E
