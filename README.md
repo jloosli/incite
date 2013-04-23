@@ -54,3 +54,7 @@ Enable I2C
 http://www.instructables.com/id/Raspberry-Pi-I2C-Python/
 
 This looks like it could be good: http://elinux.org/RPi_ADC_I2C_Python
+
+Startup location
+================
+/etc/rc.local
