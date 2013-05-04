@@ -58,3 +58,33 @@ This looks like it could be good: http://elinux.org/RPi_ADC_I2C_Python
 Startup location
 ================
 /etc/rc.local
+
+Network config
+==============
+/etc/network/interfaces
+```
+auto lo
+ 
+iface lo inet loopback
+iface eth0 inet dhcp
+ 
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+```
+
+/etc/wpa_suplicant/wpa_supplicant.conf
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+  ssid="{SSID}"
+	psk="{Password}"
+	proto=RSN
+	key_mgmt=WPA-PSK
+	pairwise=CCMP
+	auth_alg=OPEN
+}
+```
