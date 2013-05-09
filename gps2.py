@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 """
 GPS Tracking
 """
-
 
 import sys
 import os
@@ -15,10 +14,10 @@ import serial
 import sqlite3 as db
 import random, datetime
 
-def debug(*vals, **kwargs):
+def debug(*vals):
     global args
     if args.verbose:
-        print *vals, **kwargs
+        print [i for i in vals]
 
 class GPS:
     formats = {
@@ -73,11 +72,11 @@ class DataLog:
 
     def __init__(self):
         thisDir = os.path.dirname(__file__)
-        dbname = 'football.db'
-
-        print(os.path.join(thisDir + '/django/projects/football/', dbname))
+        dbname = 'gps.db'
+        datapath = os.path.join('data/', dbname)
+        print datapath
     
-        self.con=db.connect(os.path.join(thisDir + '/django/projects/football/', dbname))
+        self.con=db.connect(datapath)
         self.cur = self.con.cursor()
         self.currentSet = None
         self.g=GPS()
