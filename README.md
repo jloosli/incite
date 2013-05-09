@@ -42,10 +42,62 @@ $GPGSA,A,1,,,,,,,,,,,,,,,*1E
 Installation
 ------------
 Need to install pyserial
-`sudo apt-get install git python-serial python-flup`
+`sudo apt-get install git python-serial python-flup sqlite3`
 
 Enable USB GPS
 `echo 'KERNEL=="TTYUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
+
+Set up repository
+`git clone https://github.com/jloosli/incite.git && cd incite && git submodule init && git submodule update`
+
+set up auto run
+`sudo nano /etc/init.d/incite`
+
+Enter the following:
+```
+#! /bin/sh
+# /etc/init.d/incite 
+
+### BEGIN INIT INFO
+# Provides:          incite
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Simple script to start a program at boot
+# Description:       Run script at startup
+### END INIT INFO
+
+# If you want a command to always run, put it here
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting incite"
+    # run application you want to start
+    /home/pi/incite/testadc.py
+    ;;
+  stop)
+    echo "Stopping incite"
+    # kill application you want to stop
+    killall testadc.py
+    ;;
+  *)
+    echo "Usage: /etc/init.d/incite {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
+```
+
+GPS setup:
+gps.db
+```
+CREATE TABLE gps_datum (id INTEGER PRIMARY KEY AUTOINCREMENT, dataset_id INTEGER, gpsstring TEXT, speed REAL);
+CREATE TABLE gps_dataset (id INTEGER PRIMARY KEY AUTOINCREMENT, start TEXT);
+```
+
 
 Wireless Hotspot
 ================
@@ -84,10 +136,10 @@ update_config=1
 
 network={
   ssid="{SSID}"
-	psk="{Password}"
-	proto=RSN
-	key_mgmt=WPA-PSK
-	pairwise=CCMP
-	auth_alg=OPEN
+    psk="{Password}"
+    proto=RSN
+    key_mgmt=WPA-PSK
+    pairwise=CCMP
+    auth_alg=OPEN
 }
 ```
