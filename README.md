@@ -97,7 +97,10 @@ gps.db
 CREATE TABLE gps_datum (id INTEGER PRIMARY KEY AUTOINCREMENT, dataset_id INTEGER, gpsstring TEXT, speed REAL);
 CREATE TABLE gps_dataset (id INTEGER PRIMARY KEY AUTOINCREMENT, start TEXT);
 ```
-
+samples.db
+```
+CREATE TABLE samples(id INTEGER PRIMARY KEY AUTOINCREMENT, dataset INTEGER, date TEXT, ch0 REAL, ch1 REAL, ch2 REAL, ch3 REAL, lat TEXT, lng TEXT, speed REAL);
+```
 
 Wireless Hotspot
 ================
