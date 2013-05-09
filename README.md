@@ -42,7 +42,7 @@ $GPGSA,A,1,,,,,,,,,,,,,,,*1E
 Installation
 ------------
 Need to install pyserial
-`sudo apt-get install python-serial python-flup`
+`sudo apt-get install git python-serial python-flup`
 
 Enable USB GPS
 `echo 'KERNEL=="TTYUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
