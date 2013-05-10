@@ -104,7 +104,7 @@ while 1:
       partrows = int(steps[i] % 8)
       for x in range(fullrows):
         for y in range(0,8):
-          grid.setPixel(x+i,y)
+          grid.setPixel(x+i*8/displayChannels,y)
       for y in range(0,partrows):
         grid.setPixel(fullrows,y)
     # print "Channels: %.3f, %.3f, %.3f, %.3f V" % (ch[0],ch[1],ch[2],ch[3])
