@@ -37,7 +37,7 @@ ADS1115 = 0x01  # 16-bit ADC
 ADS_Current = ADS1115
 
 # Initialise the ADC using the default mode (use default I2C address)
-adc = ADS1x15(ic=ADS_Current, debug = True)
+adc = ADS1x15(ic=ADS_Current, debug=True)
 
 theDir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(theDir, 'data/samples.db')
@@ -54,12 +54,14 @@ print dataset
 dataset += 1
 c.execute('SELECT * FROM samples WHERE dataset = ?', (dataset - 1,))
 for row in c.fetchall():
-  print row
+    print row
 conn.commit()
 conn.close()
 
 withoutGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3) values (?, ?, ?, ?, ?, ?)"
 withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lng,speed) values (?, ?, ?, ?, ?, ?,?,?,?)"
+
+g=gps.GPS()
 
 while 1:
   ch = [0,0,0,0]
@@ -69,7 +71,7 @@ while 1:
     ch[i]=result
   print ""
 
-  gpsData=gps.GPS.read()
+  gpsData=g.read()
 
   conn = sqlite3.connect(filename)
   c = conn.cursor()

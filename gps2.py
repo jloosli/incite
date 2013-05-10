@@ -46,7 +46,7 @@ class GPS:
         #raise Exception("Can't find format")
         return None
 
-    def read(self,formatType='$GPRMC', maxTries = 100):
+    def read(self,formatType='$GPRMC', maxTries=100):
         for i in range(maxTries):
             data=self.input.readline()
             if data: 

@@ -42,10 +42,13 @@ $GPGSA,A,1,,,,,,,,,,,,,,,*1E
 Installation
 ------------
 Need to install pyserial
-`sudo apt-get install git python-serial python-flup sqlite3`
+`sudo apt-get install git python-serial python-flup sqlite3 python-smbus`
 
 Enable USB GPS
 `echo 'KERNEL=="TTYUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
+
+Add usergroups
+`sudo usermod -a -G dialout,i2c pi`
 
 Set up repository
 `git clone https://github.com/jloosli/incite.git && cd incite && git submodule init && git submodule update`
@@ -109,9 +112,7 @@ http://www.raspberrypi.org/phpBB3/viewtopic.php?f=36&t=19120
 
 Enable I2C
 ==========
-http://www.instructables.com/id/Raspberry-Pi-I2C-Python/
-
-This looks like it could be good: http://elinux.org/RPi_ADC_I2C_Python
+http://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
 
 Startup location
 ================
