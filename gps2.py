@@ -14,6 +14,8 @@ import serial
 import sqlite3 as db
 import random, datetime
 
+
+args=[]
 def debug(*vals):
     global args
     if args.verbose:
