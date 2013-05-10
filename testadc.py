@@ -99,7 +99,7 @@ while 1:
   if hasGrid:
     steps=[None]*displayChannels
     for i in range(displayChannels):
-      steps[i] = int(math.floor(ch[i] / 5000 * 64 / displayChannels))
+      steps[i] = int(math.floor(ch[i] / 5000 * 8 / displayChannels))
       fullrows = int(math.floor(steps[i]/8*displayChannels))
       partrows = int(steps[i]*displayChannels % 8)
       for x in range(fullrows):
