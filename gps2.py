@@ -39,11 +39,15 @@ class GPS:
 
     data={}
 
+    hasGPS = False
+
     def __init__(self, dev='/dev/ttyUSB0', speed=4800, timeout=1):
         try:
             self.input = serial.Serial(dev, speed, timeout=timeout)
         except Exception, e:
-            raise e
+            hasGPS = False
+        else:
+            hasGPS = True
        
 
     def decode(self,gpsString):

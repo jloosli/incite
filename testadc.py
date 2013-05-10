@@ -67,6 +67,7 @@ except Exception, e:
   g = False
 
 
+
 while 1:
   ch = [0,0,0,0]
   for i in range(0,4):
@@ -75,14 +76,14 @@ while 1:
     ch[i]=result
   print ""
 
-  if g:
+  if g.hasGPS:
     gpsData=g.read()
 
 
   conn = sqlite3.connect(filename)
   c = conn.cursor()
   ts = datetime.datetime.now()
-  if g:
+  if g.hasGPS:
     c.execute(withGPS,
               (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lng'],gpsData['speed']))
   else:
