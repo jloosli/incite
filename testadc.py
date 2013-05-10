@@ -1,11 +1,30 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
+import sys, logging, os 
+theDir = os.path.dirname(os.path.abspath(__file__))
+filename = os.path.join(theDir, 'data/samples.db')
+logger=logging.getLogger('mylogger')
+hdlr = logging.FileHandler(os.path.join(theDir,'error.log'))
+formatter = logging.Formatter('%(asctime)s - ln:%(lineno)s - [%(levelname)s] - %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.DEBUG)
+logger.info ('started')
+def my_handler(type, value, tb):
+  logger.exception("Uncaught exception: {0}".format(str(value)))
+
+sys.excepthook = my_handler
+
+#logger.log("Logger started")
+logger.info("Info")
+
 
 from adafruit.Adafruit_ADS1x15.Adafruit_ADS1x15 import ADS1x15
-import time, math, sqlite3, os, signal, sys, gps2 as gps
+import time, math, sqlite3, os, signal, sys, logging, gps2 as gps
 import datetime
 from adafruit.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 from adafruit.Adafruit_LEDBackpack import Adafruit_LEDBackpack
+
 
 # ===========================================================================
 # 8x8 Pixel Example
@@ -15,6 +34,7 @@ led = Adafruit_LEDBackpack.LEDBackpack(0x70)
 led.setBrightness = 1
 hasGrid = True
 displayChannels = 2
+
 
 
 def signal_handler(signal, frame):
@@ -39,8 +59,8 @@ ADS_Current = ADS1115
 # Initialise the ADC using the default mode (use default I2C address)
 adc = ADS1x15(ic=ADS_Current, debug=True)
 
-theDir = os.path.dirname(os.path.abspath(__file__))
-filename = os.path.join(theDir, 'data/samples.db')
+
+
 conn = sqlite3.connect(filename)
 c = conn.cursor()
 # c.execute('SHOW databases')
