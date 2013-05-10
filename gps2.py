@@ -15,7 +15,7 @@ import sqlite3 as db
 import random, datetime
 
 
-args={'verbose' = False}
+args={'verbose' : False}
 def debug(*vals):
     global args
     if args.verbose:
