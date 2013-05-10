@@ -5,6 +5,7 @@ import zipfile
 import sqlite3
 import tempfile
 import csv
+import os
 
 
 class zipData:
@@ -15,23 +16,23 @@ class zipData:
     def setData(self, data):
         self.data = data
 
-    def selfwrite(self):
-        print "here"
+    def write(self):
         print self.filename
-        csvfile = tempfile.NamedTemporaryFile()
+        csvfile = open('tempdata.csv','w')
         writer = csv.writer(csvfile)
         writer.writerows(self.data)
+        csvfile.close()
         with zipfile.ZipFile(self.filename, 'w') as theZip:
             theZip.write(csvfile.name)
+        os.remove('tempdata.csv')
 
-        csvfile.close()
 
 
 def main():
     z = zipData()
     z.setData([[0,1,2,3], [4,5,6,7]])
     z.setFile('temp.zip')
-    z.selfwrite()
+    z.write()
 
 if __name__ == '__main__':
     main()

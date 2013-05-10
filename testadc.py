@@ -106,4 +106,4 @@ while 1:
     #       grid.setPixel(x, y)
     #     i += 1
 
-  time.sleep(.1)
+  #time.sleep(.1)
