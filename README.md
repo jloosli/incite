@@ -114,9 +114,9 @@ Enable I2C
 ==========
 http://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
 
-Startup location
+Configure automatic startup
 ================
-/etc/rc.local
+http://www.stuffaboutcode.com/2012/06/raspberry-pi-run-program-at-start-up.html
 
 Network config
 ==============

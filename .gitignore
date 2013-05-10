@@ -3,6 +3,7 @@ django/projects/football/football.db
 data/*
 !empty
 *.log
+*.cfg
 
 # Compiled files
 *.py[cod]
