@@ -40,7 +40,11 @@ class GPS:
     data={}
 
     def __init__(self, dev='/dev/ttyUSB0', speed=4800, timeout=1):
-        self.input = serial.Serial(dev, speed, timeout=timeout)
+        try:
+            self.input = serial.Serial(dev, speed, timeout=timeout)
+        except Exception, e:
+            raise e
+       
 
     def decode(self,gpsString):
         parts = gpsString.split(',');

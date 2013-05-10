@@ -61,7 +61,11 @@ conn.close()
 withoutGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3) values (?, ?, ?, ?, ?, ?)"
 withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lng,speed) values (?, ?, ?, ?, ?, ?,?,?,?)"
 
-g=gps.GPS()
+try:
+  g=gps.GPS()
+except Exception, e:
+  g = False
+
 
 while 1:
   ch = [0,0,0,0]
@@ -71,12 +75,14 @@ while 1:
     ch[i]=result
   print ""
 
-  gpsData=g.read()
+  if g:
+    gpsData=g.read()
+
 
   conn = sqlite3.connect(filename)
   c = conn.cursor()
   ts = datetime.datetime.now()
-  if gpsData:
+  if g:
     c.execute(withGPS,
               (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lng'],gpsData['speed']))
   else:
