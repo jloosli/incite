@@ -82,10 +82,10 @@ class GPS:
 class DataLog:
 
     def __init__(self):
-        thisDir = os.path.dirname(__file__)
+        thisDir = os.path.dirname(os.path.abspath(__file__))
         dbname = 'gps.db'
-        datapath = os.path.join('data/', dbname)
-        print datapath
+        datapath = os.path.join(thisDir,'data/', dbname)
+        print thisDir, datapath
     
         self.con=db.connect(datapath)
         self.cur = self.con.cursor()
