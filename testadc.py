@@ -99,12 +99,12 @@ while 1:
   if hasGrid:
     steps=[None]*displayChannels
     for i in range(displayChannels):
-      steps[i] = int(math.floor(ch[i] / 5000 * 8 / displayChannels))
-      fullrows = int(math.floor(steps[i]/8*displayChannels))
-      partrows = int(steps[i]*displayChannels % 8)
+      steps[i] = int(math.floor(ch[i] / 5000 * 64 / displayChannels))
+      fullrows = int(math.floor(steps[i]/8))
+      partrows = int(steps[i] % 8)
       for x in range(fullrows):
         for y in range(0,8):
-          grid.setPixel(x+ 8*i,y)
+          grid.setPixel(x+i,y)
       for y in range(0,partrows):
         grid.setPixel(fullrows,y)
     # print "Channels: %.3f, %.3f, %.3f, %.3f V" % (ch[0],ch[1],ch[2],ch[3])
