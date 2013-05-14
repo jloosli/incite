@@ -10,7 +10,6 @@ formatter = logging.Formatter('%(asctime)s - ln:%(lineno)s - [%(levelname)s] - %
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
 logger.setLevel(logging.DEBUG)
-logger.info ('started')
 def my_handler(type, value, tb):
   logger.exception("Uncaught exception: {0}".format(str(value)))
 
@@ -69,13 +68,12 @@ c = conn.cursor()
 
 c.execute('SELECT max(dataset) FROM samples')
 results = c.fetchone()
-print results
 dataset = results[0] if results[0] is not None else -1
-print dataset
 dataset += 1
-c.execute('SELECT * FROM samples WHERE dataset = ?', (dataset - 1,))
-for row in c.fetchall():
-    print row
+logger.info("Dataset: %d" % dataset)
+# c.execute('SELECT * FROM samples WHERE dataset = ?', (dataset - 1,))
+# for row in c.fetchall():
+#     print row
 conn.commit()
 conn.close()
 
@@ -93,9 +91,9 @@ while 1:
   ch = [0,0,0,0]
   for i in range(0,4):
     result = adc.readADCSingleEnded(i,6144)
-    print i, result,
+    # print i, result,
     ch[i]=result
-  print ""
+  # print ""
 
   if g.hasGPS:
     gpsData=g.read()
