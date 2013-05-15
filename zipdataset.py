@@ -3,6 +3,7 @@
 
 import zipfile
 import os
+import requests
 
 
 class zipData:
@@ -32,6 +33,14 @@ def main():
 
     with zipfile.ZipFile(zipfilename,'w') as dbzip:
         dbzip.write(dbfilename, arcname='samples.db')
+
+    url = 'http://incite.avantidevelopment.com/sampleupload.php'
+    files = {'file': ('samples.zip', open(zipfilename, 'rb'))}
+
+    r = requests.post(url, files=files)
+    print r.text
+
+
 
 if __name__ == '__main__':
     main()
