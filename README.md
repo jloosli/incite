@@ -41,8 +41,8 @@ $GPGSA,A,1,,,,,,,,,,,,,,,*1E
 
 Installation
 ------------
-Need to install pyserial
-`sudo apt-get install git python-serial python-flup sqlite3 python-smbus gpsd gpsd-clients python-gps`
+
+`sudo apt-get install git python-serial python-flup sqlite3 python-smbus gpsd gpsd-clients python-gps python-requests`
 
 Enable USB GPS
 `echo 'KERNEL=="TTYUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
@@ -78,7 +78,7 @@ case "$1" in
   start)
     echo "Starting incite"
     # run application you want to start
-    /home/pi/incite/testadc.py
+    /home/pi/incite/testadc.py &
     ;;
   stop)
     echo "Stopping incite"
@@ -139,7 +139,7 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-  ssid="{SSID}"
+    ssid="{SSID}"
     psk="{Password}"
     proto=RSN
     key_mgmt=WPA-PSK
