@@ -31,15 +31,19 @@ def main():
     dbfilename = os.path.join(theDir, 'data/samples.db')
     zipfilename = os.path.join(theDir, 'data/samples.zip')
 
+    print "Creating Zip File"
     with zipfile.ZipFile(zipfilename,'w') as dbzip:
         dbzip.write(dbfilename, arcname='samples.db')
+    print "Zip file created"
 
+    print "Uploading file"
     url = 'http://incite.avantidevelopment.com/sampleupload.php'
     files = {'file': ('samples.zip', open(zipfilename, 'rb'))}
 
     r = requests.post(url, files=files)
     print r.text
-
+    print "File uploaded"
+    print 'Process completed'
 
 
 if __name__ == '__main__':
