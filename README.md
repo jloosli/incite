@@ -108,7 +108,7 @@ CREATE TABLE samples(id INTEGER PRIMARY KEY AUTOINCREMENT, dataset INTEGER, date
 To reset the samples table (including autoincrement):
 ```
 delete from samples;
-update sqlite_sequence SET seq=1 WHERE name='samples';
+update sqlite_sequence SET seq=0 WHERE name='samples';
 ```
 
 
