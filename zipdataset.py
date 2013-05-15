@@ -2,9 +2,6 @@
 # -*- coding: utf8 -*-
 
 import zipfile
-import sqlite3
-import tempfile
-import csv
 import os
 
 
@@ -29,10 +26,12 @@ class zipData:
 
 
 def main():
-    z = zipData()
-    z.setData([[0,1,2,3], [4,5,6,7]])
-    z.setFile('temp.zip')
-    z.write()
+    theDir = os.path.dirname(os.path.abspath(__file__))
+    dbfilename = os.path.join(theDir, 'data/samples.db')
+    zipfilename = os.path.join(theDir, 'data/samples.zip')
+
+    with zipfile.ZipFile(zipfilename,'w') as dbzip:
+        dbzip.write(dbfilename, arcname='samples.db')
 
 if __name__ == '__main__':
     main()
