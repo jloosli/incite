@@ -105,6 +105,13 @@ samples.db
 CREATE TABLE samples(id INTEGER PRIMARY KEY AUTOINCREMENT, dataset INTEGER, date TEXT, ch0 REAL, ch1 REAL, ch2 REAL, ch3 REAL, lat TEXT, lng TEXT, speed REAL);
 ```
 
+To reset the samples table (including autoincrement):
+```
+delete from samples;
+update sqlite_sequence SET seq=1 WHERE name='samples';
+```
+
+
 Wireless Hotspot
 ================
 
