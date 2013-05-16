@@ -78,6 +78,7 @@ case "$1" in
   start)
     echo "Starting incite"
     # run application you want to start
+    gpsd /dev/ttyUSB0
     /home/pi/incite/testadc.py &
     ;;
   stop)
