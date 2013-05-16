@@ -98,6 +98,7 @@ while 1:
   # print ""
 
   current = g.get_current_value()
+  gpsData=None
   if 'TPV' in current:
     gpsData=current['TPV']
 
@@ -105,7 +106,7 @@ while 1:
   conn = sqlite3.connect(filename)
   c = conn.cursor()
   ts = datetime.datetime.now()
-  if g.hasGPS:
+  if gpsData:
     c.execute(withGPS,
               (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lng'],gpsData['speed'],gpsData['time']))
   else:
