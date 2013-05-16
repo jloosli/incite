@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 
-import sys, logging, os 
+import sys, logging, os, traceback
 theDir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(theDir, 'data/samples.db')
 logger=logging.getLogger('mylogger')
@@ -11,7 +11,7 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
 logger.setLevel(logging.DEBUG)
 def my_handler(type, value, tb):
-  logger.exception("Uncaught exception: {0}".format(str(value)))
+  logger.exception("Uncaught exception: {0}  \nline: {1}".format(str(value), traceback.tb_lineno(tb)))
 
 sys.excepthook = my_handler
 
@@ -20,7 +20,7 @@ logger.info("Info")
 
 
 from adafruit.Adafruit_ADS1x15.Adafruit_ADS1x15 import ADS1x15
-from gpsPoller import gpsPoller
+from gpsPoller import GpsPoller
 import time, math, sqlite3, os, signal, sys, logging
 import datetime
 from adafruit.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
@@ -82,7 +82,7 @@ withoutGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3) values (?, ?, ?,
 withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lng,speed, gpstime) values (?, ?, ?, ?, ?, ?,?,?,?,?)"
 
 try:
-  g=gpsPoller()
+  g=GpsPoller()
   g.start()
 except Exception, e:
   g = False
