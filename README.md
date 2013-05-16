@@ -111,6 +111,23 @@ delete from samples;
 update sqlite_sequence SET seq=0 WHERE name='samples';
 ```
 
+Update if-up.d
+
+`sudo nano /etc/network/if-up.d/incite-update` 
+```
+#! /bin/sh
+
+HOMEDIR="/home/pi/"
+INCITEDIR="${HOMEDIR}incite/"
+GITLOG="${HOMEDIR}git.log"
+
+cd $INCITEDIR
+git pull >> $GITLOG
+git submodule update >> $GITLOG
+"${INCITEDIR}zipdataset.py"
+```
+
+`sudo chmod +x /etc/network/if-up.d/incite-update`
 
 Wireless Hotspot
 ================
