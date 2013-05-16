@@ -45,10 +45,10 @@ Installation
 `sudo apt-get install git python-serial python-flup sqlite3 python-smbus gpsd gpsd-clients python-gps python-requests`
 
 Enable USB GPS
-`echo 'KERNEL=="TTYUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
+`echo 'KERNEL=="ttyUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
 
 Add usergroups
-`sudo usermod -a -G dialout,i2c pi`
+`sudo usermod -a -G i2c pi`
 
 Set up repository
 `git clone https://github.com/jloosli/incite.git && cd incite && git submodule init && git submodule update`
@@ -93,6 +93,8 @@ esac
 
 exit 0
 ```
+
+`sudo chmod 755 /etc/init.d/incite`
 
 GPS setup:
 gps.db
