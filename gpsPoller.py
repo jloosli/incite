@@ -15,6 +15,12 @@ class GpsPoller(threading.Thread):
         self.current_value = {}
         self.running = True
 
+    def __del__(self):
+        print "\nKilling Thread..."
+        self.running = False
+        self.join()
+        print "Done.\nExiting."
+
     def get_current_value(self):
         return self.current_value
 
@@ -36,10 +42,12 @@ def main():
                 print "%s:\n\n%s" % ("TPV",val['TPV'])
                 time.sleep(1)
     except (KeyboardInterrupt, SystemExit):
-        print "\nKilling Thread..."
-        gpsp.running = False
-        gpsp.join()
-    print "Done.\nExiting."
+        pass
+        #del gpsp
+    #     print "\nKilling Thread..."
+    #     gpsp.running = False
+    #     gpsp.join()
+    # print "Done.\nExiting."
 
 if __name__ == '__main__':
     main()

@@ -20,7 +20,8 @@ logger.info("Info")
 
 
 from adafruit.Adafruit_ADS1x15.Adafruit_ADS1x15 import ADS1x15
-import time, math, sqlite3, os, signal, sys, logging, gps
+from gpsPoller import gpsPoller
+import time, math, sqlite3, os, signal, sys, logging
 import datetime
 from adafruit.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 from adafruit.Adafruit_LEDBackpack import Adafruit_LEDBackpack
@@ -78,10 +79,11 @@ conn.commit()
 conn.close()
 
 withoutGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3) values (?, ?, ?, ?, ?, ?)"
-withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lng,speed) values (?, ?, ?, ?, ?, ?,?,?,?)"
+withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lng,speed, gpstime) values (?, ?, ?, ?, ?, ?,?,?,?,?)"
 
 try:
-  g=gps.GPS()
+  g=gpsPoller()
+  g.start()
 except Exception, e:
   g = False
 
@@ -95,8 +97,9 @@ while 1:
     ch[i]=result
   # print ""
 
-  if g.hasGPS:
-    gpsData=g.read()
+  current = g.get_current_value()
+  if 'TPV' in current
+    gpsData=current['TPV']
 
 
   conn = sqlite3.connect(filename)
@@ -104,7 +107,7 @@ while 1:
   ts = datetime.datetime.now()
   if g.hasGPS:
     c.execute(withGPS,
-              (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lng'],gpsData['speed']))
+              (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lng'],gpsData['speed'],gpsData['time']))
   else:
     c.execute(withoutGPS, (dataset, ts, ch[0],ch[1],ch[2],ch[3]))
   conn.commit()
