@@ -95,7 +95,7 @@ exit 0
 ```
 
 `sudo chmod 755 /etc/init.d/incite`
-
+`sudo update-rc.d incite defaults`
 GPS setup:
 gps.db
 ```
