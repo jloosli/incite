@@ -15,8 +15,7 @@ def my_handler(type, value, tb):
 
 sys.excepthook = my_handler
 
-#logger.log("Logger started")
-logger.info("Info")
+logger.info("Logger started")
 
 
 from adafruit.Adafruit_ADS1x15.Adafruit_ADS1x15 import ADS1x15
@@ -79,7 +78,7 @@ conn.commit()
 conn.close()
 
 withoutGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3) values (?, ?, ?, ?, ?, ?)"
-withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lng,speed, gpstime) values (?, ?, ?, ?, ?, ?,?,?,?,?)"
+withGPS = "insert into samples(dataset,date,ch0,ch1,ch2,ch3,lat,lon,speed, gpstime) values (?, ?, ?, ?, ?, ?,?,?,?,?)"
 
 try:
   g=GpsPoller()
@@ -108,7 +107,7 @@ while 1:
   ts = datetime.datetime.now()
   if gpsData:
     c.execute(withGPS,
-              (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lng'],gpsData['speed'],gpsData['time']))
+              (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lon'],gpsData['speed'],gpsData['time']))
   else:
     c.execute(withoutGPS, (dataset, ts, ch[0],ch[1],ch[2],ch[3]))
   conn.commit()
