@@ -98,7 +98,7 @@ while 1:
   # print ""
 
   current = g.get_current_value()
-  if 'TPV' in current
+  if 'TPV' in current:
     gpsData=current['TPV']
 
 
