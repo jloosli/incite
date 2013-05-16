@@ -105,7 +105,7 @@ while 1:
   conn = sqlite3.connect(filename)
   c = conn.cursor()
   ts = datetime.datetime.now()
-  if 'lat' in gpsData:
+  if gpsData != None:
     c.execute(withGPS,
               (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lon'],gpsData['speed'],gpsData['time']))
   else:
