@@ -108,6 +108,11 @@ samples.db
 CREATE TABLE samples(id INTEGER PRIMARY KEY AUTOINCREMENT, dataset INTEGER, date TEXT, ch0 REAL, ch1 REAL, ch2 REAL, ch3 REAL, lat TEXT, lon TEXT, speed REAL, gpstime TEXT);
 ```
 
+on server:
+```
+CREATE TABLE samples(id INTEGER PRIMARY KEY AUTOINCREMENT, dataset TEXT, date TEXT, ch0 REAL, ch1 REAL, ch2 REAL, ch3 REAL, lat TEXT, lon TEXT, speed REAL, gpstime TEXT);
+```
+
 To reset the samples table (including autoincrement):
 ```
 delete from samples;
