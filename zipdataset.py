@@ -4,7 +4,33 @@
 import zipfile
 import os
 import requests
+import re
+import subprocess 
 
+
+def getUnique():
+    uniqueID = ""
+    try:
+        cpuinfo = subprocess.check_output('cat /proc/cpuinfo | grep Serial', shell=True)
+        serialRE = re.compile(r':(.+)')
+        serialResult = re.search(cpuinfo, serialRE)
+        if serialResult:
+            uniqueID = serialResult.group(1)
+    except subprocess.CalledProcessError, e:
+        print "cpuinfo not available"
+
+    if uniqueID == "":
+        try:
+            ifconfig = subprocess.check_output('ifconfig | grep -B3 "BROADCAST RUNNING"', shell=True).splitlines()
+            mac = re.compile(r"HWaddr ([a-z0-9:]+)")
+            for line in ifconfig:
+                macResult = re.search(mac, line)
+                if macResult:
+                    uniqueID = macResult.group(1)
+                    break
+        except subprocess.CalledProcessError, e:
+            print "No connection"
+    return uniqueID
 
 class zipData:
 
@@ -45,7 +71,28 @@ def main():
     print "File uploaded"
     print 'Process completed'
 
+def main2():
+    records = 1000
+    theDir = os.path.dirname(os.path.abspath(__file__))
+    dbfilename = os.path.join(theDir, 'data/samples.db')
+    unique = getUnique()
+    payload = {'check' : 1, 'mac' : unique}
+
+    url = 'http://incite.avantidevelopment.com/sampleupload.php'
+    url = 'http://localhost/incite/sampleupload.php'
+
+    try:
+        r = requests.post(url, data=payload)
+        print r.json()
+    except requests.exceptions.ConnectionError, e:
+        print "No internet connection"
+
+    # conn = sqlite3.connect(dbfilename)
+    # c = conn.cursor()
+
+   
+
 
 if __name__ == '__main__':
-    pass
+    main2()
     #main()
