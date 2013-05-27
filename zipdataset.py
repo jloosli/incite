@@ -6,6 +6,7 @@ import os
 import requests
 import re
 import subprocess 
+import sqlite3
 
 
 def getUnique():
@@ -72,25 +73,27 @@ def main():
     print 'Process completed'
 
 def main2():
-    records = 1000
     theDir = os.path.dirname(os.path.abspath(__file__))
     dbfilename = os.path.join(theDir, 'data/samples.db')
     unique = getUnique()
-    payload = {'check' : 1, 'mac' : unique}
+    payload = {'check' : 1, 'unique' : unique}
 
     url = 'http://incite.avantidevelopment.com/sampleupload.php'
     url = 'http://localhost/incite/sampleupload.php'
 
     try:
         r = requests.post(url, data=payload)
-        print r.json()
+        init = r.json()
+        conn = sqlite3.connect(dbfilename)
+        c = conn.cursor()
+        c.execute('SELECT * FROM samples WHERE id > ? LIMIT ?', (init.nextval, init.receive))
+        results = c.fetchall()
+        
+
     except requests.exceptions.ConnectionError, e:
         print "No internet connection"
 
-    # conn = sqlite3.connect(dbfilename)
-    # c = conn.cursor()
 
-   
 
 
 if __name__ == '__main__':
