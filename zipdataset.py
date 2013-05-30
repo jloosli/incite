@@ -5,8 +5,10 @@ import zipfile
 import os
 import requests
 import re
-import subprocess 
+import subprocess
 import sqlite3
+import json
+import base64
 
 
 def getUnique():
@@ -79,16 +81,43 @@ def main2():
     payload = {'check' : 1, 'unique' : unique}
 
     url = 'http://incite.avantidevelopment.com/sampleupload.php'
-    url = 'http://localhost/incite/sampleupload.php'
+    # url = 'http://localhost/incite/sampleupload.php'
 
     try:
         r = requests.post(url, data=payload)
+        print r.text
         init = r.json()
+        print init
         conn = sqlite3.connect(dbfilename)
         c = conn.cursor()
-        c.execute('SELECT * FROM samples WHERE id > ? LIMIT ?', (init.nextval, init.receive))
-        results = c.fetchall()
-        
+        hasResults = True;
+        nextval = init['nextval']
+        while hasResults:
+            c.execute('SELECT * FROM samples WHERE id > ? LIMIT ?', (nextval, init['receive']))
+            results = c.fetchall()
+            print len(results)
+            if len(results) != 0 and len(results) == int(init['receive']):
+                keys = [(x[0] if x[0] != "id" else "sys_id") for x in c.description]
+                # print keys
+                # print results
+                dataload = {
+                    'keys': json.dumps(keys), 
+                    'datasets': base64.b64encode(json.dumps(results)), 
+                    'unique' : unique
+                }
+                # print dataload
+                r = requests.post(url, data=dataload)
+                print r.text
+                nextval += init['receive']
+                if 'success' in r.json().keys() and r.json()['success'] == 1:
+                    hasResults = True
+                else:
+                    hasResults = False
+
+            else:
+                hasResults = False
+
+
 
     except requests.exceptions.ConnectionError, e:
         print "No internet connection"
