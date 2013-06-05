@@ -122,6 +122,9 @@ def main2():
     except requests.exceptions.ConnectionError, e:
         print "No internet connection"
 
+    except requests.excpetions.ValueError, e:
+        print "Didn't get JSON back"
+
 
 
 
