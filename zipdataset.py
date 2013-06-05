@@ -16,7 +16,7 @@ def getUnique():
     try:
         cpuinfo = subprocess.check_output('cat /proc/cpuinfo | grep Serial', shell=True)
         serialRE = re.compile(r':(.+)')
-        serialResult = re.search(cpuinfo, serialRE)
+        serialResult = re.search(serialRE, cpuinfo)
         if serialResult:
             uniqueID = serialResult.group(1)
     except subprocess.CalledProcessError, e:
