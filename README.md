@@ -125,7 +125,7 @@ delete from samples;
 update sqlite_sequence SET seq=0 WHERE name='samples';
 ```
 
-Update if-up.d
+Update if-up.d sleep 10 seconds then call everything (non blocking)
 
 `sudo nano /etc/network/if-up.d/incite-update` 
 ```
@@ -135,10 +135,13 @@ HOMEDIR="/home/pi/"
 INCITEDIR="${HOMEDIR}incite/"
 GITLOG="${HOMEDIR}git.log"
 
+(
+sleep 10
 cd $INCITEDIR
-git pull >> $GITLOG
-git submodule update >> $GITLOG
+git pull 2>&1 | tee -a $GITLOG
+git submodule update 2>&1 | tee -a $GITLOG
 "${INCITEDIR}zipdataset.py"
+) &
 ```
 
 `sudo chmod +x /etc/network/if-up.d/incite-update`
