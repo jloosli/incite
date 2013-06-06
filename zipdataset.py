@@ -61,7 +61,7 @@ def main():
     zipfilename = os.path.join(theDir, 'data/samples.zip')
 
     print "Creating Zip File"
-    with zipfile.ZipFile(zipfilename,'w') as dbzip:
+    with zipfile.ZipFile(zipfilename, 'w') as dbzip:
         dbzip.write(dbfilename, arcname='samples.db')
     print "Zip file created"
 
@@ -74,11 +74,12 @@ def main():
     print "File uploaded"
     print 'Process completed'
 
+
 def main2():
     theDir = os.path.dirname(os.path.abspath(__file__))
     dbfilename = os.path.join(theDir, 'data/samples.db')
     unique = getUnique()
-    payload = {'check' : 1, 'unique' : unique}
+    payload = {'check': 1, 'unique': unique}
 
     url = 'http://incite.avantidevelopment.com/sampleupload.php'
     # url = 'http://localhost/incite/sampleupload.php'
@@ -90,7 +91,7 @@ def main2():
         print init
         conn = sqlite3.connect(dbfilename)
         c = conn.cursor()
-        hasResults = True;
+        hasResults = True
         nextval = init['nextval']
         while hasResults:
             c.execute('SELECT * FROM samples WHERE id > ? LIMIT ?', (nextval, init['receive']))
@@ -101,9 +102,9 @@ def main2():
                 # print keys
                 # print results
                 dataload = {
-                    'keys': json.dumps(keys), 
-                    'datasets': base64.b64encode(json.dumps(results)), 
-                    'unique' : unique
+                    'keys': json.dumps(keys),
+                    'datasets': base64.b64encode(json.dumps(results)),
+                    'unique': unique
                 }
                 # print dataload
                 r = requests.post(url, data=dataload)
@@ -117,16 +118,11 @@ def main2():
             else:
                 hasResults = False
 
-
-
     except requests.exceptions.ConnectionError, e:
         print "No internet connection"
 
     except ValueError, e:
         print "Didn't get JSON back"
-
-
-
 
 if __name__ == '__main__':
     main2()

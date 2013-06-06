@@ -42,7 +42,13 @@ $GPGSA,A,1,,,,,,,,,,,,,,,*1E
 Installation
 ------------
 
-`sudo apt-get install git python-serial python-flup sqlite3 python-smbus gpsd gpsd-clients python-gps python-requests`
+`sudo apt-get install git python-serial python-flup sqlite3 python-smbus gpsd gpsd-clients python-gps python-pip`
+
+get requests library
+`sudo pip install requests`
+
+set up gpsd
+`sudo dpkg-reconfigure gpsd`
 
 Enable USB GPS
 `echo 'KERNEL=="ttyUSB0", MODE="0666"' | sudo tee -a /etc/udev/rules.d/80-ttyusb.rules`
