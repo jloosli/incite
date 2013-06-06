@@ -97,7 +97,7 @@ def main2():
             c.execute('SELECT * FROM samples WHERE id > ? LIMIT ?', (nextval, init['receive']))
             results = c.fetchall()
             print len(results)
-            if len(results) != 0 and len(results) == int(init['receive']):
+            if len(results) != 0: # and len(results) == int(init['receive']):
                 keys = [(x[0] if x[0] != "id" else "sys_id") for x in c.description]
                 # print keys
                 # print results

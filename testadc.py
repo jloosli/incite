@@ -59,8 +59,6 @@ ADS_Current = ADS1115
 # Initialise the ADC using the default mode (use default I2C address)
 adc = ADS1x15(ic=ADS_Current, debug=True)
 
-
-
 conn = sqlite3.connect(filename)
 c = conn.cursor()
 # c.execute('SHOW databases')
