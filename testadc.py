@@ -90,9 +90,9 @@ while 1:
   ch = [0,0,0,0]
   for i in range(0,4):
     result = adc.readADCSingleEnded(i,6144)
-    # print i, result,
+    print i, result,
     ch[i]=result
-  # print ""
+  print ""
 
   current = g.get_current_value()
   gpsData=None
