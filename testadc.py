@@ -24,6 +24,8 @@ import time, math, sqlite3, os, signal, sys, logging
 import datetime
 from adafruit.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 from adafruit.Adafruit_LEDBackpack import Adafruit_LEDBackpack
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 
 # ===========================================================================
@@ -90,9 +92,9 @@ while 1:
   ch = [0,0,0,0]
   for i in range(0,4):
     result = adc.readADCSingleEnded(i,6144)
-    print i, result,
     ch[i]=result
-  print ""
+  print "{0:.6f} {1:.6f} {2:.6f} {3:.6f}".format(*ch)
+
 
   current = g.get_current_value()
   gpsData=None
