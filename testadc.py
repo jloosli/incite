@@ -24,8 +24,6 @@ import time, math, sqlite3, os, signal, sys, logging
 import datetime
 from adafruit.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
 from adafruit.Adafruit_LEDBackpack import Adafruit_LEDBackpack
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
 
 
 # ===========================================================================
@@ -86,7 +84,7 @@ try:
 except Exception, e:
   g = False
 
-
+print "Four channels in mV"
 
 while 1:
   ch = [0,0,0,0]
