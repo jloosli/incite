@@ -103,7 +103,7 @@ while 1:
   conn = sqlite3.connect(filename)
   c = conn.cursor()
   ts = datetime.datetime.now()
-  if gpsData != None :
+  if gpsData != None and set(gpsData.keys()).issuperset(['lat','lon','speed','time']):
     c.execute(withGPS,
               (dataset, ts, ch[0],ch[1],ch[2],ch[3],gpsData['lat'],gpsData['lon'],gpsData['speed'],gpsData['time']))
   else:
