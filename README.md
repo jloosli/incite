@@ -78,19 +78,19 @@ Enter the following:
 ### END INIT INFO
 
 # If you want a command to always run, put it here
-
+echo "Incite incite init.d"
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
     echo "Starting incite"
     # run application you want to start
     gpsd /dev/ttyUSB0
-    /home/pi/incite/testadc.py &
+    /home/pi/incite/incite.py &
     ;;
   stop)
     echo "Stopping incite"
     # kill application you want to stop
-    killall testadc.py
+    pkill -f incite.py
     ;;
   *)
     echo "Usage: /etc/init.d/incite {start|stop}"
@@ -99,10 +99,14 @@ case "$1" in
 esac
 
 exit 0
+
 ```
 
-`sudo chmod 755 /etc/init.d/incite`
-`sudo update-rc.d incite defaults && sudo /etc/init.d/incite start`
+```
+sudo chmod 755 /etc/init.d/incite
+sudo update-rc.d incite defaults && sudo /etc/init.d/incite start
+```
+
 GPS setup:
 gps.db
 ```
