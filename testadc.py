@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 
 import sys, logging, os, traceback
@@ -6,7 +6,7 @@ theDir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(theDir, 'data/samples.db')
 logger=logging.getLogger('mylogger')
 hdlr = logging.FileHandler(os.path.join(theDir,'error.log'))
-formatter = logging.Formatter('%(asctime)s - ln:%(lineno)s - [%(levelname)s] - %(message)s')
+formatter = logging.Formatter('%(asctime)s - %(pathname)s:ln:%(lineno)s - [%(levelname)s] - %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
 logger.setLevel(logging.DEBUG)
@@ -16,7 +16,6 @@ def my_handler(type, value, tb):
 sys.excepthook = my_handler
 
 logger.info("Logger started")
-
 
 from adafruit.Adafruit_ADS1x15.Adafruit_ADS1x15 import ADS1x15
 from gpsPoller import GpsPoller
