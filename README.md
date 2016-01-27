@@ -9,6 +9,16 @@ Test from command line
 ----------------------
 stty -F /dev/ttyUSB0 ispeed 4800 && cat < /dev/ttyUSB0
 
+Troubleshooting
+---------------
+I needed to edit the default file on the Ubuntu system:
+
+```
+sudo vi /etc/default/gpsd
+```
+
+and add in `/dev/ttyUSB0` into the default devices
+
 GPS Readings:
 -------------
 
